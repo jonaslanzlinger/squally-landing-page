@@ -1,0 +1,111 @@
+body {
+   background-image: url("./assets/bg-squally.png");
+   background-repeat: repeat;
+   background-position: center center;
+   background-size: cover;
+}
+
+html,
+body {
+   height: 100%;
+   margin: 0;
+   padding: 0;
+   overflow-x: hidden;
+   overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+   width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+   background-color: rgba(100, 100, 100, 0.5);
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+   background-color: rgba(255, 255, 255, 0.1);
+}
+
+section {
+   background-color: rgba(
+      236,
+      236,
+      236,
+      0.95
+   ); /* Black color with 60% opacity */
+   padding: 20px;
+   border-radius: 10px; /* Optional: add rounded corners */
+   color: #000000; /* Ensure text color is white for contrast */
+   margin: 20px auto;
+   max-width: 1000px;
+   height: 80vh;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: add a shadow for depth */
+}
+
+/* Additional styling to adjust text alignment */
+section h2,
+section p {
+   text-align: center; /* Center the heading and paragraph */
+}
+
+/* Basic styling for layout */
+body {
+   font-family: Arial, sans-serif;
+}
+
+/* Make the navbar sticky and centered */
+nav {
+   display: flex;
+   justify-content: center; /* Center the navbar content */
+   background-color: #1c1c1c; /* Dark color to match the design */
+   padding: 10px 0;
+   position: sticky;
+   top: 0;
+   z-index: 1000;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Add subtle shadow */
+}
+
+nav ul {
+   display: flex;
+   list-style-type: none;
+   padding: 0;
+   margin: 0;
+}
+
+nav ul li {
+   margin: 0 15px;
+}
+
+nav ul li a {
+   color: #ffffff; /* White color for text */
+   text-decoration: none;
+   padding: 10px 15px;
+   display: block;
+   font-weight: bold;
+   transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+   background-color: #555; /* Lighter color for hover and active states */
+   color: #f0f0f0;
+   border-radius: 5px; /* Rounded corners */
+}
+
+/* General styling for images in the home section */
+.home-image {
+   width: 25%; /* Adjust size */
+   display: block;
+   margin: 0 auto;
+}
+
+/* Styling for the introductory text in the home section */
+.home-text {
+   text-align: center;
+   margin-top: 20px;
+   line-height: 1.5;
+   max-width: 750px;
+   margin-left: auto;
+   margin-right: auto;
+}
