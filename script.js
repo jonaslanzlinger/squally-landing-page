@@ -1,6 +1,7 @@
 // Function to handle nav item clicks
 function handleNavItemClick(event) {
-   event.preventDefault();
+   event.preventDefault(); // Prevent default anchor behavior
+
    const link = event.target;
    const targetSectionId = link.getAttribute("href").substring(1);
    const targetSection = document.getElementById(targetSectionId);
@@ -15,15 +16,21 @@ function handleNavItemClick(event) {
       targetSection.style.display = "block";
    }
 
-   // Update active class
+   // Remove 'active' class from all links and add to clicked link
    document.querySelectorAll("nav ul li a").forEach((navLink) => {
       navLink.classList.remove("active");
    });
    link.classList.add("active");
+
+   // Focus on chat input if "Chatbot" section is clicked
+   if (targetSectionId === "chatbot") {
+      document.getElementById("chat-input").focus();
+   }
 }
 
 // Initial page setup on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
+   // Initially show only the first section and set the first link as active
    const sections = document.querySelectorAll("section");
    sections.forEach((section, index) => {
       section.style.display = index === 0 ? "block" : "none";
@@ -34,7 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
       navLinks[0].classList.add("active");
    }
 
+   // Add event listeners to nav items
    navLinks.forEach((link) => {
       link.addEventListener("click", handleNavItemClick);
    });
+
+   // Call updateNavItems if necessary, making sure required variables are defined
+   if (typeof updateNavItems === "function") {
+      updateNavItems();
+   }
 });
