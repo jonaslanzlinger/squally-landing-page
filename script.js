@@ -51,3 +51,29 @@ document.addEventListener("DOMContentLoaded", () => {
       updateNavItems();
    }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+   const visitorFeed = document.getElementById("visitor-feed");
+   let scrollInterval;
+
+   function startAutoScroll() {
+      scrollInterval = setInterval(() => {
+         visitorFeed.scrollBy(0, 2); // Adjust scroll speed by changing 2
+         if (
+            visitorFeed.scrollTop + visitorFeed.clientHeight >=
+            visitorFeed.scrollHeight
+         ) {
+            visitorFeed.scrollTop = 0; // Reset scroll to top when reaching the end
+         }
+      }, 30); // Adjust interval speed by changing 30
+   }
+
+   function stopAutoScroll() {
+      clearInterval(scrollInterval);
+   }
+
+   visitorFeed.addEventListener("mouseenter", stopAutoScroll);
+   visitorFeed.addEventListener("mouseleave", startAutoScroll);
+
+   startAutoScroll();
+});

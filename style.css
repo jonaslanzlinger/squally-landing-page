@@ -109,3 +109,163 @@ nav ul li a.active {
    margin-left: auto;
    margin-right: auto;
 }
+
+/* Style for the About Section */
+#about {
+   text-align: center;
+   padding: 20px;
+}
+
+/* Container for the team photos */
+.team-photos {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+   margin-top: 20px;
+}
+
+/* Styling for each team member */
+.team-member {
+   text-align: center;
+   width: 190px;
+}
+
+/* Styling for each team photo */
+.team-photo {
+   width: 150px;
+   height: 150px;
+   object-fit: cover;
+   border-radius: 50%;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+   transition: transform 0.3s ease;
+   margin-bottom: 10px;
+}
+
+/* Hover effect for team photos */
+.team-photo:hover {
+   transform: scale(1.1);
+}
+
+/* Styling for the name, title, and email */
+.team-name {
+   font-weight: bold;
+   margin: 5px 0 0;
+}
+
+.team-title {
+   font-style: italic;
+   margin: 3px 0;
+   font-size: 0.9em;
+   color: #555;
+}
+
+.team-email {
+   font-size: 0.65em;
+   color: #0077cc;
+   text-decoration: none;
+   display: block; /* Ensures each email is on its own line */
+   margin-top: 5px;
+   word-break: break-all; /* Wraps long email addresses to avoid overflow */
+}
+
+#map-section {
+   text-align: center;
+   padding: 20px;
+}
+
+#map {
+   width: 100%;
+   height: 500px; /* Set the height you want */
+   border-radius: 10px;
+   margin-top: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: add a shadow for depth */
+}
+
+#map {
+   width: 100%;
+   height: 500px;
+}
+
+/* Styling for the popup */
+.ol-popup {
+   position: absolute;
+   background-color: white;
+   padding: 10px;
+   border-radius: 8px;
+   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+   border: 1px solid #ccc;
+   min-width: 160px;
+   bottom: 40px;
+   transform: translateX(-50%); /* Center the popup horizontally */
+}
+
+.ol-popup::after {
+   content: "";
+   position: absolute;
+   bottom: -8px; /* Position arrow at the bottom */
+   left: 50%;
+   transform: translateX(-50%);
+   border-style: solid;
+   border-width: 8px 8px 0;
+   border-color: #fff transparent;
+}
+
+.ol-popup-closer {
+   position: absolute;
+   top: 5px;
+   right: 5px;
+   font-size: 16px;
+   text-decoration: none;
+   color: #666;
+   cursor: pointer;
+}
+
+#visitor-book {
+   text-align: center;
+   padding: 20px;
+}
+
+.visitor-feed {
+   display: flex;
+   flex-direction: column; /* Stack entries vertically */
+   align-items: center; /* Center entries horizontally */
+   overflow-y: auto; /* Enable vertical scrolling */
+   max-height: 90%; /* Limit height for scrolling */
+   padding-right: 10px; /* Space for scrollbar */
+}
+
+/* Styling for each visitor entry */
+.visitor-entry {
+   border: 1px solid #ddd;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+   width: 85%; /* Increase width */
+   max-width: 600px; /* Limit maximum width */
+   margin-bottom: 20px;
+   text-align: center;
+   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition effect */
+}
+
+/* Hover effect for visitor entries */
+.visitor-entry:hover {
+   transform: scale(1.05); /* Slightly zoom in */
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Deepen shadow */
+}
+
+.visitor-selfie {
+   width: 100%;
+   height: 250px;
+   object-fit: cover;
+   border-radius: 10px;
+   margin-bottom: 10px;
+}
+
+.visitor-info {
+   font-size: 1em;
+   line-height: 1.4;
+}
+
+.visitor-info p {
+   margin: 5px 0;
+}

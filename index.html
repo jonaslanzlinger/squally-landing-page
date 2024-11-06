@@ -7,6 +7,11 @@
       <title>Squally at HSG</title>
       <link rel="icon" type="image/png" href="assets/icon-squally.png" />
       <link rel="stylesheet" href="style.css" />
+      <script src="https://cdn.jsdelivr.net/npm/ol@v10.2.1/dist/ol.js"></script>
+      <link
+         rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/ol@v10.2.1/ol.css"
+      />
    </head>
    <body>
       <!-- Navbar -->
@@ -14,6 +19,8 @@
          <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#art-guide">Art Guide</a></li>
+            <li><a href="#map-section">Map</a></li>
+            <li><a href="#visitor-book">Visitor Book</a></li>
             <li><a href="#about">About</a></li>
          </ul>
       </nav>
@@ -27,8 +34,30 @@
             class="home-image"
          />
          <p class="home-text">
-            Hello! I'm Squally, the social robot at HSG. There are lots of
-            things I can do, and I'm here to help you explore the world of art.
+            Hey! I am Squally and I am more than just a guide — I'm your
+            personal companion to explore and connect with the art and stories
+            woven into our campus. This project was created to help you uncover
+            hidden gems, learn about the artists behind each piece, and see our
+            campus in a whole new way.
+         </p>
+         <p class="home-text">
+            With Squally, you'll discover a curated selection of artworks spread
+            across campus, each with its unique story and meaning. Whether
+            you’re a student, faculty member, or visitor, we hope Squally adds a
+            spark of inspiration to your day, making each step a little more
+            colorful and meaningful.
+         </p>
+         <p class="home-text">
+            We appreciate feedback of your experience and interaction with
+            Squally so that we can constantly improve Squally’s capabilities of
+            offering an unique art experience at the University of St. Gallen.
+            To give feedback please follow this
+            <a
+               href="https://forms.office.com/Pages/ResponsePage.aspx?id=WS4mp1YbWk-kEm8HGB9I7nPwbeRmSjdCtEhW8dSo9gBUN1JOWTRSR1JOQkJLNVBOTjJNRjBBMDEwNS4u"
+               target="_blank"
+               >Feedback Form</a
+            >
+            !
          </p>
       </section>
 
@@ -40,6 +69,217 @@
                >click here to view the HSG Art Guide</a
             >.
          </p>
+      </section>
+
+      <section id="map-section">
+         <h2>Campus Art Locations</h2>
+         <div id="map"></div>
+      </section>
+
+      <div id="popup" class="ol-popup">
+         <a href="#" id="popup-closer" class="ol-popup-closer">×</a>
+         <div id="popup-content"></div>
+      </div>
+
+      <!-- JavaScript at the end of the body -->
+      <script>
+         document.addEventListener("DOMContentLoaded", function () {
+            if (typeof ol !== "undefined") {
+               const map = new ol.Map({
+                  target: "map",
+                  layers: [
+                     new ol.layer.Tile({
+                        source: new ol.source.OSM(),
+                     }),
+                  ],
+                  view: new ol.View({
+                     center: ol.proj.fromLonLat([9.3748, 47.4239]),
+                     zoom: 15,
+                  }),
+               });
+
+               const locations = [
+                  {
+                     coordinates: [9.3748, 47.4239],
+                     description:
+                        "Campus Art Location 1: A beautiful sculpture representing modern art.",
+                  },
+                  {
+                     coordinates: [9.3758, 47.4225],
+                     description:
+                        "Campus Art Location 2: An interactive digital art installation.",
+                  },
+                  {
+                     coordinates: [9.373, 47.425],
+                     description:
+                        "Campus Art Location 3: A classic painting from the Renaissance era.",
+                  },
+               ];
+
+               const vectorSource = new ol.source.Vector();
+               locations.forEach((location) => {
+                  const marker = new ol.Feature({
+                     geometry: new ol.geom.Point(
+                        ol.proj.fromLonLat(location.coordinates)
+                     ),
+                     description: location.description,
+                  });
+                  marker.setStyle(
+                     new ol.style.Style({
+                        image: new ol.style.Icon({
+                           anchor: [0.5, 1],
+                           src: "https://upload.wikimedia.org/wikipedia/commons/e/ec/RedDot.svg",
+                           scale: 2,
+                        }),
+                     })
+                  );
+                  vectorSource.addFeature(marker);
+               });
+               const markerLayer = new ol.layer.Vector({
+                  source: vectorSource,
+               });
+               map.addLayer(markerLayer);
+
+               const popup = new ol.Overlay({
+                  element: document.getElementById("popup"),
+                  autoPan: true,
+                  autoPanAnimation: { duration: 250 },
+               });
+               map.addOverlay(popup);
+
+               const popupContent = document.getElementById("popup-content");
+               const popupCloser = document.getElementById("popup-closer");
+
+               popupCloser.onclick = function () {
+                  popup.setPosition(undefined);
+                  popupCloser.blur();
+                  return false;
+               };
+
+               map.on("singleclick", function (event) {
+                  map.forEachFeatureAtPixel(event.pixel, function (feature) {
+                     const description = feature.get("description");
+                     if (description) {
+                        const coordinates = feature
+                           .getGeometry()
+                           .getCoordinates();
+                        popupContent.innerHTML = description;
+                        popup.setPosition(coordinates);
+                     }
+                  });
+               });
+            } else {
+               console.error("OpenLayers library failed to load.");
+            }
+         });
+      </script>
+
+      <!-- Visitor Feed Section -->
+      <section id="visitor-book">
+         <h2>Digital Visitor Book</h2>
+         <div id="visitor-feed" class="visitor-feed">
+            <!-- Hardcoded visitor entries -->
+            <div class="visitor-entry">
+               <img
+                  src="assets/example-photo-booth.jpg"
+                  alt="Visitor Selfie"
+                  class="visitor-selfie"
+               />
+               <div class="visitor-info">
+                  <p><strong>Name:</strong> Jonas Länzlinger</p>
+                  <p><strong>Country:</strong> Switzerland</p>
+                  <p><strong>Date:</strong> 2024-11-05</p>
+                  <p><em>"Exploring art with Squally was amazing!"</em></p>
+               </div>
+            </div>
+            <div class="visitor-entry">
+               <img
+                  src="assets/example-photo-booth.jpg"
+                  alt="Visitor Selfie"
+                  class="visitor-selfie"
+               />
+               <div class="visitor-info">
+                  <p><strong>Name:</strong> Saskia Müller</p>
+                  <p><strong>Country:</strong> Germany</p>
+                  <p><strong>Date:</strong> 2024-11-05</p>
+                  <p>
+                     <em>"A unique and interactive experience on campus!"</em>
+                  </p>
+               </div>
+            </div>
+            <div class="visitor-entry">
+               <img
+                  src="assets/example-photo-booth.jpg"
+                  alt="Visitor Selfie"
+                  class="visitor-selfie"
+               />
+               <div class="visitor-info">
+                  <p><strong>Name:</strong> Pia Schneider</p>
+                  <p><strong>Country:</strong> Austria</p>
+                  <p><strong>Date:</strong> 2024-11-05</p>
+                  <p><em>"Loved seeing the art through Squally’s eyes!"</em></p>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- About Section -->
+      <section id="about">
+         <h2>About Us</h2>
+         <p>
+            Squally in the role of an Art Guide was developed by three HSG
+            Students. The goal of the project is to connect students with the
+            world of art and transform the art experience on campus into an
+            interactive journey. We are Jonas (Master of Computer Science),
+            Saskia (Master of Business Innovation), and Pia (Master of Business
+            Innovation).
+         </p>
+
+         <div class="team-photos">
+            <!-- Jonas -->
+            <div class="team-member">
+               <img
+                  src="assets/placeholder-man.jpeg"
+                  alt="Photo of Jonas"
+                  class="team-photo"
+               />
+               <p class="team-name">Jonas Länzlinger</p>
+               <p class="team-title">MSc Computer Science</p>
+               <a
+                  href="mailto:jonas.laenzlinger@student.unisg.ch"
+                  class="team-email"
+                  >jonas.laenzlinger@student.unisg.ch</a
+               >
+            </div>
+            <!-- Saskia -->
+            <div class="team-member">
+               <img
+                  src="assets/placeholder-woman.jpg"
+                  alt="Photo of Saskia"
+                  class="team-photo"
+               />
+               <p class="team-name">Saskia Bilang</p>
+               <p class="team-title">MA Business Innovation</p>
+               <a
+                  href="mailto:saskiavivianne.bilang@student.unisg.ch"
+                  class="team-email"
+                  >saskiavivianne.bilang@student.unisg.ch</a
+               >
+            </div>
+            <!-- Pia -->
+            <div class="team-member">
+               <img
+                  src="assets/placeholder-woman.jpg"
+                  alt="Photo of Pia"
+                  class="team-photo"
+               />
+               <p class="team-name">Pia Obenauf</p>
+               <p class="team-title">MA Business Innovation</p>
+               <a href="mailto:pia.obenauf@student.unisg.ch" class="team-email"
+                  >pia.obenauf@student.unisg.ch</a
+               >
+            </div>
+         </div>
       </section>
 
       <script src="script.js"></script>
