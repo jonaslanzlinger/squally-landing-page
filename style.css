@@ -10,8 +10,7 @@ body {
    height: 100%;
    margin: 0;
    padding: 0;
-   overflow-x: hidden;
-   overflow-y: scroll;
+   overflow: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -28,42 +27,75 @@ body {
 }
 
 section {
-   background-color: rgba(
-      236,
-      236,
-      236,
-      0.95
-   ); /* Black color with 60% opacity */
+   background-color: #ececec;
    padding: 20px;
-   border-radius: 10px; /* Optional: add rounded corners */
-   color: #000000; /* Ensure text color is white for contrast */
-   margin: 20px auto;
-   max-width: 1000px;
-   height: 80vh;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: add a shadow for depth */
+   border-radius: 0;
+   color: #000000;
+   margin: 0 auto;
+   max-width: 1200px;
+   height: calc(100% - 40px);
+   box-sizing: border-box;
+   overflow: hidden;
+   box-shadow: none;
 }
 
-/* Additional styling to adjust text alignment */
+#fullscreen-map {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: #ffffff;
+   z-index: 1000;
+   display: none;
+}
+
+#fullscreen-map #map {
+   width: 100%;
+   height: 100%;
+   margin: 0;
+}
+
+#close-map {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   background-color: #828282;
+   color: #ffffff;
+   border: none;
+   border-radius: 5px;
+   padding: 10px 15px;
+   font-size: 16px;
+   cursor: pointer;
+   z-index: 1100;
+}
+
+#close-map:hover {
+   background-color: #cc0000;
+}
+
+#home-page.hidden {
+   display: none;
+}
+
 section h2,
 section p {
-   text-align: center; /* Center the heading and paragraph */
+   text-align: center;
 }
 
-/* Basic styling for layout */
 body {
    font-family: Arial, sans-serif;
 }
 
-/* Make the navbar sticky and centered */
 nav {
    display: flex;
-   justify-content: center; /* Center the navbar content */
-   background-color: #1c1c1c; /* Dark color to match the design */
+   justify-content: center;
+   background-color: #1c1c1c;
    padding: 10px 0;
    position: sticky;
    top: 0;
    z-index: 1000;
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Add subtle shadow */
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 nav ul {
@@ -78,7 +110,7 @@ nav ul li {
 }
 
 nav ul li a {
-   color: #ffffff; /* White color for text */
+   color: #ffffff;
    text-decoration: none;
    padding: 10px 15px;
    display: block;
@@ -88,19 +120,17 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a.active {
-   background-color: #555; /* Lighter color for hover and active states */
+   background-color: #555;
    color: #f0f0f0;
-   border-radius: 5px; /* Rounded corners */
+   border-radius: 5px;
 }
 
-/* General styling for images in the home section */
 .home-image {
-   width: 25%; /* Adjust size */
+   width: 25%;
    display: block;
    margin: 0 auto;
 }
 
-/* Styling for the introductory text in the home section */
 .home-text {
    text-align: center;
    margin-top: 20px;
@@ -110,13 +140,20 @@ nav ul li a.active {
    margin-right: auto;
 }
 
-/* Style for the About Section */
+.about-text {
+   text-align: center;
+   margin-top: 20px;
+   line-height: 1.5;
+   max-width: 750px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
 #about {
    text-align: center;
    padding: 20px;
 }
 
-/* Container for the team photos */
 .team-photos {
    display: flex;
    justify-content: center;
@@ -124,13 +161,11 @@ nav ul li a.active {
    margin-top: 20px;
 }
 
-/* Styling for each team member */
 .team-member {
    text-align: center;
    width: 190px;
 }
 
-/* Styling for each team photo */
 .team-photo {
    width: 150px;
    height: 150px;
@@ -141,12 +176,6 @@ nav ul li a.active {
    margin-bottom: 10px;
 }
 
-/* Hover effect for team photos */
-.team-photo:hover {
-   transform: scale(1.1);
-}
-
-/* Styling for the name, title, and email */
 .team-name {
    font-weight: bold;
    margin: 5px 0 0;
@@ -163,22 +192,21 @@ nav ul li a.active {
    font-size: 0.65em;
    color: #0077cc;
    text-decoration: none;
-   display: block; /* Ensures each email is on its own line */
+   display: block;
    margin-top: 5px;
-   word-break: break-all; /* Wraps long email addresses to avoid overflow */
+   word-break: break-all;
 }
 
 #map-section {
    text-align: center;
-   padding: 20px;
 }
 
 #map {
    width: 100%;
-   height: 500px; /* Set the height you want */
+   height: 500px;
    border-radius: 10px;
    margin-top: 20px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Optional: add a shadow for depth */
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 #map {
@@ -186,7 +214,6 @@ nav ul li a.active {
    height: 500px;
 }
 
-/* Styling for the popup */
 .ol-popup {
    position: absolute;
    background-color: white;
@@ -196,13 +223,13 @@ nav ul li a.active {
    border: 1px solid #ccc;
    min-width: 160px;
    bottom: 40px;
-   transform: translateX(-50%); /* Center the popup horizontally */
+   transform: translateX(-50%);
 }
 
 .ol-popup::after {
    content: "";
    position: absolute;
-   bottom: -8px; /* Position arrow at the bottom */
+   bottom: -8px;
    left: 50%;
    transform: translateX(-50%);
    border-style: solid;
@@ -227,45 +254,119 @@ nav ul li a.active {
 
 .visitor-feed {
    display: flex;
-   flex-direction: column; /* Stack entries vertically */
-   align-items: center; /* Center entries horizontally */
-   overflow-y: auto; /* Enable vertical scrolling */
-   max-height: 90%; /* Limit height for scrolling */
-   padding-right: 10px; /* Space for scrollbar */
+   flex-direction: column;
+   align-items: center;
+   overflow-y: auto;
+   max-height: 90%;
+   padding-right: 10px;
 }
 
-/* Styling for each visitor entry */
 .visitor-entry {
    border: 1px solid #ddd;
-   padding: 20px;
-   border-radius: 10px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-   width: 85%; /* Increase width */
-   max-width: 600px; /* Limit maximum width */
+   padding: 5px;
+   border-radius: 5px;
+   border: 1px solid #c8c8c8;
+   width: 85%;
+   max-width: 600px;
    margin-bottom: 20px;
    text-align: center;
-   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition effect */
-}
-
-/* Hover effect for visitor entries */
-.visitor-entry:hover {
-   transform: scale(1.05); /* Slightly zoom in */
-   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Deepen shadow */
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .visitor-selfie {
    width: 100%;
-   height: 250px;
+   height: 300px;
    object-fit: cover;
-   border-radius: 10px;
+   border-radius: 5px;
    margin-bottom: 10px;
 }
 
 .visitor-info {
    font-size: 1em;
-   line-height: 1.4;
+   line-height: 1.2;
 }
 
 .visitor-info p {
    margin: 5px 0;
+}
+
+nav {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: #1c1c1c;
+   padding: 10px 0;
+   position: sticky;
+   top: 0;
+   z-index: 1000;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+nav ul {
+   display: flex;
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   gap: 20px;
+}
+
+nav ul li {
+   margin: 0;
+}
+
+nav ul li a {
+   color: #ffffff;
+   text-decoration: none;
+   padding: 8px 15px;
+   border-radius: 25px;
+   transition: all 0.3s ease;
+   font-size: 16px;
+   font-weight: bold;
+   background-color: transparent;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+   background-color: #555;
+   color: #ffffff;
+   transform: scale(1.1);
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+nav ul li a {
+   color: #ffffff;
+   text-decoration: none;
+   padding: 8px 15px;
+   border-radius: 25px;
+   transition: all 0.3s ease;
+   font-size: 16px;
+   font-weight: bold;
+   background-color: transparent;
+   display: inline-block;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+   background-color: #555;
+   color: #ffffff;
+   transform: scale(1.1);
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.marker {
+   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.marker:hover {
+   transform: scale(1.2);
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.visitor-feed {
+   overflow-y: scroll;
+   scrollbar-width: none;
+}
+
+.visitor-feed::-webkit-scrollbar {
+   display: none;
 }

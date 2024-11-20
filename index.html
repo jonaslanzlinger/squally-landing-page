@@ -14,18 +14,16 @@
       />
    </head>
    <body>
-      <!-- Navbar -->
       <nav>
          <ul>
             <li><a href="#home">Home</a></li>
             <li><a href="#art-guide">Art Guide</a></li>
-            <li><a href="#map-section">Map</a></li>
+            <li><a id="map-section" href="#map">Map</a></li>
             <li><a href="#visitor-book">Visitor Book</a></li>
             <li><a href="#about">About</a></li>
          </ul>
       </nav>
 
-      <!-- Home Section -->
       <section id="home">
          <h2>Hi, I'm Squally!</h2>
          <img
@@ -61,7 +59,6 @@
          </p>
       </section>
 
-      <!-- Art Guide Section -->
       <section id="art-guide">
          <p>
             For a better experience,
@@ -71,172 +68,77 @@
          </p>
       </section>
 
-      <section id="map-section">
-         <h2>Campus Art Locations</h2>
+      <div id="fullscreen-map">
+         <button id="close-map">X</button>
          <div id="map"></div>
-      </section>
+      </div>
+
+      <div id="home-page"></div>
 
       <div id="popup" class="ol-popup">
          <a href="#" id="popup-closer" class="ol-popup-closer">×</a>
          <div id="popup-content"></div>
       </div>
 
-      <!-- JavaScript at the end of the body -->
-      <script>
-         document.addEventListener("DOMContentLoaded", function () {
-            if (typeof ol !== "undefined") {
-               const map = new ol.Map({
-                  target: "map",
-                  layers: [
-                     new ol.layer.Tile({
-                        source: new ol.source.OSM(),
-                     }),
-                  ],
-                  view: new ol.View({
-                     center: ol.proj.fromLonLat([9.3748, 47.4239]),
-                     zoom: 15,
-                  }),
-               });
-
-               const locations = [
-                  {
-                     coordinates: [9.3748, 47.4239],
-                     description:
-                        "Campus Art Location 1: A beautiful sculpture representing modern art.",
-                  },
-                  {
-                     coordinates: [9.3758, 47.4225],
-                     description:
-                        "Campus Art Location 2: An interactive digital art installation.",
-                  },
-                  {
-                     coordinates: [9.373, 47.425],
-                     description:
-                        "Campus Art Location 3: A classic painting from the Renaissance era.",
-                  },
-               ];
-
-               const vectorSource = new ol.source.Vector();
-               locations.forEach((location) => {
-                  const marker = new ol.Feature({
-                     geometry: new ol.geom.Point(
-                        ol.proj.fromLonLat(location.coordinates)
-                     ),
-                     description: location.description,
-                  });
-                  marker.setStyle(
-                     new ol.style.Style({
-                        image: new ol.style.Icon({
-                           anchor: [0.5, 1],
-                           src: "https://upload.wikimedia.org/wikipedia/commons/e/ec/RedDot.svg",
-                           scale: 2,
-                        }),
-                     })
-                  );
-                  vectorSource.addFeature(marker);
-               });
-               const markerLayer = new ol.layer.Vector({
-                  source: vectorSource,
-               });
-               map.addLayer(markerLayer);
-
-               const popup = new ol.Overlay({
-                  element: document.getElementById("popup"),
-                  autoPan: true,
-                  autoPanAnimation: { duration: 250 },
-               });
-               map.addOverlay(popup);
-
-               const popupContent = document.getElementById("popup-content");
-               const popupCloser = document.getElementById("popup-closer");
-
-               popupCloser.onclick = function () {
-                  popup.setPosition(undefined);
-                  popupCloser.blur();
-                  return false;
-               };
-
-               map.on("singleclick", function (event) {
-                  map.forEachFeatureAtPixel(event.pixel, function (feature) {
-                     const description = feature.get("description");
-                     if (description) {
-                        const coordinates = feature
-                           .getGeometry()
-                           .getCoordinates();
-                        popupContent.innerHTML = description;
-                        popup.setPosition(coordinates);
-                     }
-                  });
-               });
-            } else {
-               console.error("OpenLayers library failed to load.");
-            }
-         });
-      </script>
-
-      <!-- Visitor Feed Section -->
       <section id="visitor-book">
          <h2>Digital Visitor Book</h2>
          <div id="visitor-feed" class="visitor-feed">
-            <!-- Hardcoded visitor entries -->
             <div class="visitor-entry">
                <img
-                  src="assets/example-photo-booth.jpg"
+                  src="assets/example-photo-booth-1.jpg"
                   alt="Visitor Selfie"
                   class="visitor-selfie"
                />
                <div class="visitor-info">
-                  <p><strong>Name:</strong> Jonas Länzlinger</p>
-                  <p><strong>Country:</strong> Switzerland</p>
-                  <p><strong>Date:</strong> 2024-11-05</p>
+                  <p>The Lundgrens</p>
+                  <p>2024-11-05</p>
                   <p><em>"Exploring art with Squally was amazing!"</em></p>
                </div>
             </div>
             <div class="visitor-entry">
                <img
-                  src="assets/example-photo-booth.jpg"
+                  src="assets/example-photo-booth-2.jpeg"
                   alt="Visitor Selfie"
                   class="visitor-selfie"
                />
                <div class="visitor-info">
-                  <p><strong>Name:</strong> Saskia Müller</p>
-                  <p><strong>Country:</strong> Germany</p>
-                  <p><strong>Date:</strong> 2024-11-05</p>
+                  <p>Charlie Cheng</p>
+                  <p>2024-11-08</p>
                   <p>
-                     <em>"A unique and interactive experience on campus!"</em>
+                     <em>"I enjoyed the art tour so much, thank you! :D"</em>
                   </p>
                </div>
             </div>
             <div class="visitor-entry">
                <img
-                  src="assets/example-photo-booth.jpg"
+                  src="assets/example-photo-booth-3.webp"
                   alt="Visitor Selfie"
                   class="visitor-selfie"
                />
                <div class="visitor-info">
-                  <p><strong>Name:</strong> Pia Schneider</p>
-                  <p><strong>Country:</strong> Austria</p>
-                  <p><strong>Date:</strong> 2024-11-05</p>
-                  <p><em>"Loved seeing the art through Squally’s eyes!"</em></p>
+                  <p>Noah, Petra, and Mathilda</p>
+                  <p>2024-10-15</p>
+                  <p>
+                     <em
+                        >"Thank you very much! We took some nice pictures with
+                        Squally."</em
+                     >
+                  </p>
                </div>
             </div>
          </div>
       </section>
 
-      <!-- About Section -->
       <section id="about">
          <h2>About Us</h2>
-         <p>
+         <p class="about-text">
             Squally in the role of an Art Guide was developed by three HSG
             Students. The goal of the project is to connect students with the
-            world of art and transform the art experience on campus into an
-            interactive journey. We are Jonas (Master of Computer Science),
-            Saskia (Master of Business Innovation), and Pia (Master of Business
-            Innovation).
+            world of art and transform the experience on campus into an
+            interactive journey.
          </p>
 
          <div class="team-photos">
-            <!-- Jonas -->
             <div class="team-member">
                <img
                   src="assets/placeholder-man.jpeg"
@@ -251,7 +153,6 @@
                   >jonas.laenzlinger@student.unisg.ch</a
                >
             </div>
-            <!-- Saskia -->
             <div class="team-member">
                <img
                   src="assets/placeholder-woman.jpg"
@@ -266,7 +167,6 @@
                   >saskiavivianne.bilang@student.unisg.ch</a
                >
             </div>
-            <!-- Pia -->
             <div class="team-member">
                <img
                   src="assets/placeholder-woman.jpg"

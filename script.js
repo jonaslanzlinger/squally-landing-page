@@ -1,36 +1,29 @@
-// Function to handle nav item clicks
 function handleNavItemClick(event) {
-   event.preventDefault(); // Prevent default anchor behavior
+   event.preventDefault();
 
    const link = event.target;
    const targetSectionId = link.getAttribute("href").substring(1);
    const targetSection = document.getElementById(targetSectionId);
 
-   // Hide all sections
    document.querySelectorAll("section").forEach((section) => {
       section.style.display = "none";
    });
 
-   // Show the target section if it exists
    if (targetSection) {
       targetSection.style.display = "block";
    }
 
-   // Remove 'active' class from all links and add to clicked link
    document.querySelectorAll("nav ul li a").forEach((navLink) => {
       navLink.classList.remove("active");
    });
    link.classList.add("active");
 
-   // Focus on chat input if "Chatbot" section is clicked
    if (targetSectionId === "chatbot") {
       document.getElementById("chat-input").focus();
    }
 }
 
-// Initial page setup on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
-   // Initially show only the first section and set the first link as active
    const sections = document.querySelectorAll("section");
    sections.forEach((section, index) => {
       section.style.display = index === 0 ? "block" : "none";
@@ -41,39 +34,121 @@ document.addEventListener("DOMContentLoaded", () => {
       navLinks[0].classList.add("active");
    }
 
-   // Add event listeners to nav items
    navLinks.forEach((link) => {
       link.addEventListener("click", handleNavItemClick);
    });
 
-   // Call updateNavItems if necessary, making sure required variables are defined
    if (typeof updateNavItems === "function") {
       updateNavItems();
    }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+   const fullscreenMap = document.getElementById("fullscreen-map");
+   const homePage = document.getElementById("home-page");
+   const closeMapButton = document.getElementById("close-map");
+
+   const openFullscreenMap = () => {
+      fullscreenMap.style.display = "block";
+      homePage.classList.add("hidden");
+   };
+
+   const closeFullscreenMap = () => {
+      fullscreenMap.style.display = "none";
+      homePage.classList.remove("hidden");
+   };
+
+   document
+      .getElementById("map-section")
+      .addEventListener("click", openFullscreenMap);
+
+   closeMapButton.addEventListener("click", closeFullscreenMap);
+});
+
 document.addEventListener("DOMContentLoaded", function () {
-   const visitorFeed = document.getElementById("visitor-feed");
-   let scrollInterval;
+   if (typeof ol !== "undefined") {
+      const map = new ol.Map({
+         target: "map",
+         layers: [
+            new ol.layer.Tile({
+               source: new ol.source.OSM(),
+            }),
+         ],
+         view: new ol.View({
+            center: ol.proj.fromLonLat([9.375, 47.4322]),
+            zoom: 19,
+         }),
+      });
 
-   function startAutoScroll() {
-      scrollInterval = setInterval(() => {
-         visitorFeed.scrollBy(0, 2); // Adjust scroll speed by changing 2
-         if (
-            visitorFeed.scrollTop + visitorFeed.clientHeight >=
-            visitorFeed.scrollHeight
-         ) {
-            visitorFeed.scrollTop = 0; // Reset scroll to top when reaching the end
-         }
-      }, 30); // Adjust interval speed by changing 30
+      const locations = [
+         {
+            coordinates: [9.3747, 47.43233],
+            description:
+               "Felice Varini | «Dix disques évidés plus neuf moitiés et deux quarts», 2014, ",
+         },
+         {
+            coordinates: [9.3753, 47.4326],
+            description:
+               "CGerhard Richter | «St.Gallen», 1989, Öl auf Leinwand, zweiteilig, 680 cm x 250 cm",
+         },
+         {
+            coordinates: [9.375, 47.4325],
+            description:
+               "Enzo Cucchi | Ohne Titel, 1988, Mischtechnik, 18,8 x 3,4 m",
+         },
+      ];
+
+      const vectorSource = new ol.source.Vector();
+      locations.forEach((location) => {
+         const marker = new ol.Feature({
+            geometry: new ol.geom.Point(
+               ol.proj.fromLonLat(location.coordinates)
+            ),
+            description: location.description,
+         });
+         marker.setStyle(
+            new ol.style.Style({
+               image: new ol.style.Icon({
+                  anchor: [0.5, 1],
+                  src: "https://upload.wikimedia.org/wikipedia/commons/e/ec/RedDot.svg",
+                  scale: 2,
+               }),
+            })
+         );
+         vectorSource.addFeature(marker);
+      });
+      const markerLayer = new ol.layer.Vector({
+         source: vectorSource,
+      });
+      map.addLayer(markerLayer);
+
+      const popup = new ol.Overlay({
+         element: document.getElementById("popup"),
+         autoPan: true,
+         autoPanAnimation: { duration: 250 },
+      });
+      map.addOverlay(popup);
+
+      const popupContent = document.getElementById("popup-content");
+      const popupCloser = document.getElementById("popup-closer");
+
+      popupCloser.onclick = function () {
+         popup.setPosition(undefined);
+         popupCloser.blur();
+         return false;
+      };
+
+      map.on("singleclick", function (event) {
+         map.forEachFeatureAtPixel(event.pixel, function (feature) {
+            const description = feature.get("description");
+            if (description) {
+               const coordinates = feature.getGeometry().getCoordinates();
+               popupContent.innerHTML = description;
+               popup.setPosition(coordinates);
+            }
+         });
+      });
+   } else {
+      console.error("OpenLayers library failed to load.");
    }
-
-   function stopAutoScroll() {
-      clearInterval(scrollInterval);
-   }
-
-   visitorFeed.addEventListener("mouseenter", stopAutoScroll);
-   visitorFeed.addEventListener("mouseleave", startAutoScroll);
-
-   startAutoScroll();
 });
