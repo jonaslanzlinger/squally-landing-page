@@ -84,17 +84,15 @@ document.addEventListener("DOMContentLoaded", function () {
          {
             coordinates: [9.3747, 47.43233],
             description:
-               "Felice Varini | «Dix disques évidés plus neuf moitiés et deux quarts», 2014, ",
+               "Felice Varini | 'Dix disques évidés plus neuf moitiés et deux quarts', 2014",
          },
          {
             coordinates: [9.3753, 47.4326],
-            description:
-               "CGerhard Richter | «St.Gallen», 1989, Öl auf Leinwand, zweiteilig, 680 cm x 250 cm",
+            description: "Gerhard Richter | 'St.Gallen', 1989, 680cm x 250cm",
          },
          {
             coordinates: [9.375, 47.4325],
-            description:
-               "Enzo Cucchi | Ohne Titel, 1988, Mischtechnik, 18,8 x 3,4 m",
+            description: "Enzo Cucchi | 'Ohne Titel', 1988, 18,8m x 3,4m",
          },
       ];
 
